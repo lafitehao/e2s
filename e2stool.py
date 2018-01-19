@@ -60,11 +60,11 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         order_name = sys.argv[1]
         file_name = sys.argv[2]
-        if order_name == 'create':
+        if order_name == '-c':
             execl_to_create(file_name)
-        elif order_name == 'insert':
+        elif order_name == '-i':
             execl_to_insert(file_name)
     else:
-        print('command_args ::= (create/insert file_name)')
+        print('command_args ::= (-c/-i file_name)')
 
 
