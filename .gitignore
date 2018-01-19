@@ -101,4 +101,4 @@ ENV/
 .mypy_cache/
 
 # MY TEST
-__test__
+__test__.py

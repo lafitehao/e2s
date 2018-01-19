@@ -1,14 +1,14 @@
 class MyTable:
-    _sql_main = "drop table {table_code} cascade constraints;\t" +\
-                   "create table {table_code}\t" +\
-                   "(\t" +\
-                   "{cols},\t" +\
-                   "constraint PK_{table_code} primary key ({pk_code})\t" +\
-                   ");\t" +\
-                   "comment on table {table_code} is {table_name};\t" +\
-                   "{col_comms}"
-    _sql_col = "{code} {c_type} {not_null},"
-    _sql_col_comm = "comment on column {table_code}.{col_code} is {col_comm}\;"
+    _sql_main = 'drop table {table_code} cascade constraints;\n' +\
+                   'create table {table_code}\n' +\
+                   '(\n' +\
+                   '{cols},\n' +\
+                   'constraint PK_{table_code} primary key ({pk_code})\n' +\
+                   ');\n' +\
+                   'comment on table {table_code} is {table_name};\n' +\
+                   '{col_comms}'
+    _sql_col = '{code} {c_type} {not_null},\n'
+    _sql_col_comm = 'comment on column {table_code}.{col_code} is {col_comm};\n'
 
     def __init__ (self, name, code):
         self.__name = name
@@ -30,8 +30,8 @@ class MyTable:
 
     def build_table (self):
         return MyTable._sql_main.format(
-            table_code = self.__name,
-            table_name = self.__code,
+            table_code = self.__code,
+            table_name = self.__name,
             pk_code = self.__pk_code,
-            cols = self.__cols[:-1],
+            cols = self.__cols[:-2],
             col_comms = self.__col_comms)
