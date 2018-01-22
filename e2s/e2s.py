@@ -1,23 +1,24 @@
 #!/usr/bin/python3
 
-import lib.execlparser
-import lib.sqlbuilder
+from e2slib import execlparser, sqlbuilder
 import xlrd
+import sys
+sys.path.append('./lib')
 
-parser = lib.execlparser
-builder = lib.sqlbuilder
+parser = execlparser
+builder = sqlbuilder
 
 def build_insert_from_execl(file_name):
+    sh = xlrd.open_workbook(file_name).sheet_by_index(0)
     print(
         builder.build_insert(
-            parser.parse_data(
-                xlrd.open_workbook(file_name).sheets[0])))
+            parser.parse_data(sh)))
 
 def build_create_from_execl(file_name):
+    sh = xlrd.open_workbook(file_name).sheet_by_index(0)
     print(
         builder.build_table(
-            parser.parse_table(
-                xlrd.open_workbook(file_name).sheets[0])))
+            parser.parse_table(sh)))
 
 if __name__ == '__main__':
     import sys
@@ -25,8 +26,8 @@ if __name__ == '__main__':
         order_code = sys.argv[1]
 
         if order_code == '-c':
-            build_insert_from_execl(sys.argv[2])
-        elif order_code == '-i':
             build_create_from_execl(sys.argv[2])
+        elif order_code == '-i':
+            build_insert_from_execl(sys.argv[2])
     else:
         print('command_args ::== (-c/-r file_name)')
