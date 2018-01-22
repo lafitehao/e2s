@@ -16,6 +16,7 @@ class Field:
         self.not_null = not_null
 
 class InsertData:
+    table_code = ''
     fields = []
     cols = []
 

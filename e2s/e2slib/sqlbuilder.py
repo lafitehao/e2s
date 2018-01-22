@@ -9,16 +9,16 @@ sql_table = 'drop table {table_code} cascade constraints;\n' +\
                '{field_comms}\n'
 sql_field = '{code} {c_type} {not_null},\n'
 sql_field_comm = 'comment on fieldumn {table_code}.{field_code} is {field_comm};\n'
-sql_insert = 'insert into ({fields}) values ({values});\n'
+sql_insert = 'insert into {table_code}({fields}) values ({values});\n'
 
 def build_insert(insert_data):
     fields = insert_data.fields
     cols = insert_data.cols
+    table_code = insert_data.table_code
     insert_str = ''
-
     fields_str = ''
     for i in range(len(fields)):
-        fields += str(fields[i]) + ','
+        fields_str += str(fields[i]) + ','
 
     for i in range(len(cols)):
         values_str = ''
@@ -26,7 +26,8 @@ def build_insert(insert_data):
             values_str += '\'' + str(cols[i][j]) + '\','
 
         insert_str += sql_insert.format(fields = fields_str[0:-1],
-                                        values = values_str[0:-1])
+                                        values = values_str[0:-1],
+                                        table_code = table_code)
     return insert_str
 
 def build_table(tables):

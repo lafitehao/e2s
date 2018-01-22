@@ -4,8 +4,9 @@ def parse_data(sh):
     sh = sh
     data = blueprint.InsertData()
 
+    data.table_code = sh.name
     for i in range(sh.nrows):
-        if sh.cell_value(i, 0) == 0:
+        if sh.cell_value(i, 0) == 0 or i == 0:
             for j in range(sh.ncols):
                 data.add_field(sh.cell_value(i, j))
         else:
